@@ -120,16 +120,52 @@ a{text-decoration:none;color:inherit;}
 .ccard-nm{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;line-height:1.2;margin-bottom:4px;}
 .ccard-pr{font-size:10px;color:var(--gold);font-weight:600;letter-spacing:1px;}
 
-/* ── SHOP BY TEAM ── */
-#team-sec{padding:52px 0 52px 16px;background:var(--bg2);}
-#team-sec .sec-pad-inner{padding-right:16px;}
-.team-scroll{display:flex;gap:12px;overflow-x:auto;padding-right:16px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+/* ── NEW SHOP BY TEAM (WHITE CARDS) ── */
+#team-sec{padding:52px 0 52px 16px; background:#000;} /* Background black hi rehne do taaki white cards chamkein */
+.team-scroll{display:flex; gap:16px; overflow-x:auto; padding:10px 16px 25px 0; -webkit-overflow-scrolling:touch; scrollbar-width:none;}
 .team-scroll::-webkit-scrollbar{display:none;}
-.tcard{flex:0 0 100px;background:var(--card);border:1px solid var(--bdr);border-radius:4px;padding:16px 8px;text-align:center;cursor:pointer;transition:all .3s;}
-.tcard:hover{border-color:var(--gold);background:#1a1a1a;}
-.tcard-ico{font-size:28px;margin-bottom:8px;}
-.tcard-nm{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;line-height:1.2;color:var(--wht);}
 
+.tcard {
+  flex: 0 0 160px; /* Card ki width */
+  height: 240px;   /* JaiHind Sports jaisi lambai */
+  background: #ffffff; /* Ekdam white */
+  border-radius: 18px; /* Smooth corners */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.tcard:active { transform: scale(0.95); }
+
+.tcard-ico { 
+  width: 110px; 
+  height: 110px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.tcard-ico img { 
+  max-width: 100%; 
+  max-height: 100%; 
+  object-fit: contain; 
+}
+
+.tcard-nm { 
+  font-family: 'Oswald', sans-serif; 
+  font-size: 14px; 
+  font-weight: 800; 
+  color: #000000; /* Black text on white card */
+  text-transform: uppercase; 
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+ 
 /* ── VALUES ── */
 #values-sec{padding:52px 16px;background:#000;text-align:center;}
 .val-grid{display:grid;grid-template-columns:1fr;gap:28px;margin-top:36px;}
@@ -899,24 +935,19 @@ var PRODS = [
 {id:58,c:'c9',p:350,n:'Ronaldo',badge:'NEW',imgs:['https://ibb.co/7Jy7Zw4H','https://ibb.co/Hf8jPc3j']}
 ];
 
-// ══════ TEAMS ══════
 var TEAMS = [
-  {n:'Real Madrid',ico:'⚪',clr:'#fff'},
-  {n:'AC Milan',ico:'🔴',clr:'#c00'},
-  {n:'Barcelona',ico:'🔵',clr:'#034'},
-  {n:'Man United',ico:'🔴',clr:'#da020f'},
-  {n:'Arsenal',ico:'🔴',clr:'#ef0107'},
-  {n:'Chelsea',ico:'🔵',clr:'#034694'},
-  {n:'Germany',ico:'🇩🇪',clr:'#333'},
-  {n:'Brazil',ico:'🇧🇷',clr:'#009c3b'},
-  {n:'Argentina',ico:'🇦🇷',clr:'#74acdf'},
-  {n:'India 🏏',ico:'🇮🇳',clr:'#FF9933'},
-  {n:'IPL',ico:'🏆',clr:'#6c2c91'},
-  {n:'PSG',ico:'🔵',clr:'#003087'},
-  {n:'Japan',ico:'🇯🇵',clr:'#bc002d'},
-  {n:'Portugal',ico:'🇵🇹',clr:'#003d2d'}
+  {n:'Arsenal', img:'https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg'},
+  {n:'Al-Nassr', img:'https://upload.wikimedia.org/wikipedia/en/4/4b/Al_Nassr_FC_logo.svg'},
+  {n:'Ajax', img:'https://upload.wikimedia.org/wikipedia/en/7/79/Ajax_Amsterdam.svg'},
+  {n:'Atletico Madrid', img:'https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_madrid_2017_logo.svg'},
+  {n:'Real Madrid', img:'https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg'},
+  {n:'Barcelona', img:'https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_logo.svg'},
+  {n:'Man United', img:'https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg'},
+  {n:'India 🏏', img:'https://upload.wikimedia.org/wikipedia/en/8/8d/Indian_Cricket_Team_Cards_Logo.svg'},
+  {n:'Germany', img:'https://upload.wikimedia.org/wikipedia/en/e/e3/Germany_national_football_team_crest.svg'},
+  {n:'Brazil', img:'https://upload.wikimedia.org/wikipedia/en/0/05/Brazil_national_football_team_crest.svg'}
 ];
-
+ 
 // ══════ POLICY DATA ══════
 var POLS = {
   return:{eye:'RETURNS & REFUNDS',title:'Refund Policy',
@@ -1133,16 +1164,21 @@ function renderCols() {
   }).join('');
 }
 
-// ══════ RENDER TEAMS ══════
+// ══════ RENDER TEAMS (UPDATED FOR LOGOS) ══════
 function renderTeams() {
   var el = document.getElementById('team-scroll'); if(!el) return;
   el.innerHTML = TEAMS.map(function(t){
-    return '<div class="tcard" onclick="filterByTeam(\''+t.n+'\')">'+
-      '<div class="tcard-ico">'+t.ico+'</div>'+
-      '<p class="tcard-nm">'+t.n+'</p>'+
+    // Agar image URL nahi mila toh Placeholder (PH) dikhayega
+    var imgSrc = t.img || PH; 
+    return '<div class="tcard" onclick="filterByTeam(\''+t.n+'\')">' +
+      '<div class="tcard-ico">' +
+        '<img src="' + imgSrc + '" alt="' + t.n + '" onerror="this.src=PH">' +
+      '</div>' +
+      '<p class="tcard-nm">' + t.n + '</p>' +
     '</div>';
   }).join('');
 }
+ 
 
 function filterByTeam(teamName) {
   var kw = teamName.replace(' 🏏','').toLowerCase();

@@ -83,32 +83,83 @@ a{text-decoration:none;color:inherit;}
 .tagline-h span{color:var(--gold);}
 .tagline-sub{font-size:13px;color:var(--gray);margin-top:12px;letter-spacing:2px;}
 
-/* ── PRODUCT CARD ── */
-.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-@media(min-width:640px){.pgrid{gap:16px;}}
-.pcard{background:var(--card);border:1px solid var(--bdr);border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color .3s,transform .3s;}
-.pcard:hover{border-color:var(--gold);transform:translateY(-2px);}
-.pimgw{position:relative;aspect-ratio:1;overflow:hidden;background:#0d0d0d;}
-.pimgw img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s,opacity .4s;}
-.pi2{opacity:0;}
-.pcard:hover .pi1{opacity:0;transform:scale(1.05);}
-.pcard:hover .pi2{opacity:1;transform:scale(1.05);}
-.pbdgs{position:absolute;top:8px;left:8px;display:flex;flex-direction:column;gap:4px;z-index:2;}
-.bdg{font-size:8px;letter-spacing:2px;font-weight:700;padding:4px 8px;border-radius:2px;text-transform:uppercase;}
-.bdg-new{background:var(--green);color:#000;}
-.bdg-sale{background:var(--red);color:#fff;}
-.bdg-sold{background:#444;color:#aaa;}
-.pinfo{padding:12px 12px 14px;}
-.pcol-tag{font-size:9px;letter-spacing:2px;font-weight:600;color:var(--gold);text-transform:uppercase;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pnm{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:var(--wht);letter-spacing:.5px;line-height:1.2;margin-bottom:6px;}
-.pprrow{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-.ppr{font-size:14px;font-weight:700;color:var(--wht);}
-.ppr-old{font-size:11px;color:var(--gray);text-decoration:line-through;}
-.pacts{display:flex;gap:8px;}
-.bc{flex-shrink:0;width:38px;height:38px;background:var(--gold);border:none;color:#000;border-radius:2px;display:flex;align-items:center;justify-content:center;transition:background .2s;}
-.bc:hover{background:#fff;}
-.bbn{flex:1;padding:10px 6px;background:transparent;border:1px solid var(--bdr);color:var(--wht);font-size:8px;letter-spacing:2px;font-weight:700;border-radius:2px;text-transform:uppercase;transition:all .3s;}
-.bbn:hover{background:var(--wht);color:#000;border-color:var(--wht);}
+ /* --- PREMIUM NEW ARRIVALS CARDS (WHITE) --- */
+.pgrid {
+  display: flex; 
+  gap: 16px; 
+  overflow-x: auto; 
+  padding: 10px 16px 30px 5px; 
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.pgrid::-webkit-scrollbar { display: none; }
+
+.pcard {
+  flex: 0 0 175px; /* Perfect width for mobile */
+  background: #ffffff; 
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.pcard:active { transform: scale(0.95); }
+
+/* Product Image */
+.pimgw {
+  width: 100%;
+  height: 220px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #f4f4f4;
+  margin-bottom: 10px;
+}
+
+.pimgw img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info Styling */
+.pinfo { padding: 4px; }
+
+.pnm {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 5px;
+}
+
+.ppr {
+  font-size: 15px;
+  font-weight: 800;
+  color: #000;
+}
+
+/* Badge (New/Hot) */
+.pbdgs {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 2;
+}
+.bdg {
+  background: var(--gold);
+  color: #000;
+  font-size: 9px;
+  font-weight: 900;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+ 
 
 /* ── COLLECTIONS GRID ── */
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -1157,36 +1208,31 @@ function renderCart(){
   document.getElementById('csub-amt').textContent = fmt(cartTotal());
 }
 
-// ══════ RENDER PRODUCT GRID ══════
+ // ────── RENDER PRODUCT GRID (UPGRADED) ──────
 function renderProdGrid(gridId, prods) {
   var grid = document.getElementById(gridId); if(!grid) return;
   if(!prods || !prods.length){
     grid.innerHTML='<p style="color:var(--gray);font-size:13px;padding:20px 0">No products found.</p>';
     return;
   }
+
   grid.innerHTML = prods.map(function(p){
-    var col = COLS.filter(function(c){return c.id===p.c;})[0];
-    var badge2 = p.badge?'<span class="bdg bdg-'+p.badge.toLowerCase()+'">'+p.badge+'</span>':'';
-    return '<div class="pcard" onclick="openProdPage('+p.id+')">'+
-      '<div class="pimgw">'+
-        '<img class="pi1" src="'+p.imgs[0]+'" alt="'+p.n+'" loading="lazy" onerror="this.src=\''+PH+'\'">'+
-        (p.imgs[1]?'<img class="pi2" src="'+p.imgs[1]+'" alt="'+p.n+'" loading="lazy" onerror="this.src=\''+PH+'\'">':'')+
-        '<div class="pbdgs">'+badge2+'</div>'+
-      '</div>'+
-      '<div class="pinfo">'+
-        '<p class="pcol-tag">'+(col?col.n:'')+'</p>'+
-        '<p class="pnm">'+p.n+'</p>'+
-        '<div class="pprrow"><span class="ppr">'+fmt(p.p)+'</span></div>'+
-        '<div class="pacts">'+
-          '<button class="bc" onclick="event.stopPropagation();addToCart('+p.id+')" title="Add to Cart">'+
-            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>'+
-          '</button>'+
-          '<button class="bbn" onclick="event.stopPropagation();addToCart('+p.id+');openCheckout()">BUY NOW</button>'+
-        '</div>'+
-      '</div>'+
+    // Badge logic (New/Hot etc)
+    var badge = p.badge ? '<div class="pbdgs"><span class="bdg">'+p.badge+'</span></div>' : '';
+    
+    return '<div class="pcard" onclick="openProdPage(\''+p.id+'\')">' +
+      badge +
+      '<div class="pimgw">' +
+        '<img src="'+p.imgs[0]+'" alt="'+p.n+'" loading="lazy">' +
+      '</div>' +
+      '<div class="pinfo">' +
+        '<p class="pnm">'+p.n+'</p>' +
+        '<p class="ppr">₹'+p.p+'</p>' +
+      '</div>' +
     '</div>';
   }).join('');
 }
+ 
 
 // ══════ RENDER NEW ARRIVALS ══════
 function renderNewArrivals() {

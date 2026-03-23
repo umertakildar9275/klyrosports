@@ -166,15 +166,58 @@ a{text-decoration:none;color:inherit;}
   margin-bottom: 5px;
 }
  
-/* ── VALUES ── */
-#values-sec{padding:52px 16px;background:#000;text-align:center;}
-.val-grid{display:grid;grid-template-columns:1fr;gap:28px;margin-top:36px;}
-@media(min-width:640px){.val-grid{grid-template-columns:1fr 1fr 1fr;}}
-.val-card{padding:24px;background:var(--card);border:1px solid var(--bdr);border-radius:4px;}
-.val-ico{font-size:32px;margin-bottom:14px;}
-.val-title{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;letter-spacing:1px;margin-bottom:8px;text-transform:uppercase;}
-.val-sub{font-size:12px;color:var(--gray);line-height:1.7;}
+/* ── PREMIUM VALUES SECTION ── */
+#values-sec { padding: 80px 16px; background: #000; text-align: center; }
 
+.val-grid { 
+  display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 40px; 
+}
+@media(min-width: 640px) { .val-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+.val-card {
+  padding: 45px 24px;
+  /* Premium Dark Gradient */
+  background: linear-gradient(145deg, #161616, #0a0a0a); 
+  /* Subtle Border */
+  border: 1px solid rgba(255, 255, 255, 0.05); 
+  border-radius: 24px; /* Modern Soft Corners */
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+}
+
+/* Hover Effect: Card jumps up and border glows Gold */
+.val-card:hover {
+  transform: translateY(-12px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.val-ico { 
+  font-size: 48px; 
+  margin-bottom: 24px; 
+  display: inline-block;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+}
+
+.val-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.val-sub {
+  font-size: 13px;
+  color: #888; /* Modern Muted Gray */
+  line-height: 1.8;
+  font-weight: 300;
+  max-width: 280px;
+  margin: 0 auto;
+}
+ 
 /* ── FAQ ── */
 #faq-sec{padding:52px 16px;background:var(--bg2);}
 .faq-item{border-bottom:1px solid var(--bdr);}
@@ -497,33 +540,40 @@ img.broken{opacity:.3;filter:grayscale(1);}
     </div>
   </section>
 
-  <!-- VALUES -->
-  <section id="values-sec">
-    <p class="sec-lbl" style="text-align:center">Why Us</p>
-    <h2 class="sec-title" style="text-align:center">Our Promise</h2>
+
+
+  <!-- TRUST TICKER -->
+  <div style="background:var(--gold);padding:14px 0;overflow:hidden;white-space:nowrap;">
+    <div style="display:inline-flex;animation:ticker 20s linear infinite;">
+      <span style="padding:0 40px;font-family:'Oswald',sans-serif;font-size:13px;<section id="values-sec">
+  <div class="sec-pad-inner">
+    <p style="color:var(--gold); font-size:11px; letter-spacing:4px; margin-bottom:10px; font-weight:700; text-transform:uppercase;">Our Standards</p>
+    
     <div class="val-grid">
+      
       <div class="val-card">
-        <div class="val-ico">👁️</div>
+        <div class="val-ico">🎯</div>
         <h3 class="val-title">Intentional Design</h3>
         <p class="val-sub">Every jersey is designed with purpose. Premium sublimation and embroidery prints that look great and last long.</p>
       </div>
+
       <div class="val-card">
         <div class="val-ico">❤️</div>
         <h3 class="val-title">Made with Care</h3>
         <p class="val-sub">We believe in quality over quantity. Each product is crafted with care using premium fabrics and materials.</p>
       </div>
+
       <div class="val-card">
         <div class="val-ico">🏆</div>
         <h3 class="val-title">A Team with a Goal</h3>
-        <p class="val-sub">Real people, great products. We're passionate sports fans serving 10,000+ happy customers across India.</p>
+        <p class="val-sub">Real people, passionate sports fans serving 10,000+ happy customers across India with unmatched dedication.</p>
       </div>
-    </div>
-  </section>
 
-  <!-- TRUST TICKER -->
-  <div style="background:var(--gold);padding:14px 0;overflow:hidden;white-space:nowrap;">
-    <div style="display:inline-flex;animation:ticker 20s linear infinite;">
-      <span style="padding:0 40px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;color:#000;">🏅 SERVING 10,000+ HAPPY CUSTOMERS</span>
+    </div>
+  </div>
+</section>
+       
+       font-weight:700;letter-spacing:3px;color:#000;">🏅 SERVING 10,000+ HAPPY CUSTOMERS</span>
       <span style="padding:0 40px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;color:#000;">📦 FREE SHIPPING ALL OVER INDIA</span>
       <span style="padding:0 40px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;color:#000;">⭐ PREMIUM QUALITY GUARANTEED</span>
       <span style="padding:0 40px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;color:#000;">🏅 SERVING 10,000+ HAPPY CUSTOMERS</span>
